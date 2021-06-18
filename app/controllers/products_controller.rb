@@ -7,6 +7,7 @@ class ProductsController < ApplicationController
   def show
     the_id = params[:id]
     a_product = Product.find_by(id: the_id)
+
     render json: a_product.as_json
   end
 
@@ -24,6 +25,7 @@ class ProductsController < ApplicationController
   def update
     the_id = params[:id]
     product = Product.find_by(id: the_id)
+
     product.name = params[:input_name]
     product.price = params[:input_price]
     product.image_url = params[:input_image_url]
@@ -31,5 +33,13 @@ class ProductsController < ApplicationController
 
     product.save
     render json: product.as_json
+  end
+
+  def destroy
+    the_id = params[:id]
+    product = Product.find_by(id: the_id)
+
+    product.destroy
+    render json: {message: "Destroyed the product"}
   end
 end
