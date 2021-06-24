@@ -16,23 +16,32 @@ class ProductsController < ApplicationController
       name: params[:input_name], 
       price: params[:input_price], 
       image_url: params[:input_image_url], 
-      description: params[:input_description]
+      description: params[:input_description],
+      supplier_id: params[:input_supplier_id]
     )
-    product.save
-    render json: product
+
+    if product.save
+      render json: product
+    else
+      render json: {errors: product.errors.full_messages}, status: :unprocessable_entity
+    end
   end
 
   def update
-    the_id = params[:id]
-    product = Product.find_by(id: the_id)
+    product = Product.find_by(id: params[:id])
 
-    product.name = params[:name] || product.name
-    product.price = params[:price] || product.price
-    product.image_url = params[:image_url] || product.image_url
-    product.description = params[:description] || product.description
-
-    product.save
-    render json: product
+    product.update(
+      name: params[:name] || product.name,
+      description: params[:description] || product.description,
+      price: params[:price] || product.price,
+      image_url: params[:image_url] || product.image_url,
+      supplier_id: params[:supplier_id] || product.supplier_id
+    )
+    if product.save
+      render json: product
+    else
+      render json: {errors: product.errors.full_messages}, status: :unprocessable_entity
+    end
   end
 
   def destroy
