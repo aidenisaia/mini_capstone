@@ -1,0 +1,3 @@
+new model for images
+product has_many :images
+image belongs_to :product
