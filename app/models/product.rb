@@ -5,8 +5,10 @@ class Product < ApplicationRecord
   validates :price, numericality: { greater_than: 0 }
   validates :description, presence: true
   validates :description, length: { minimum: 1}
+  
   belongs_to :supplier
   has_many :images
+  has_many :orders
 
   def is_discounted?
     if price < 10

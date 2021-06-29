@@ -1,3 +1,5 @@
-new model for images
-product has_many :images
-image belongs_to :product
+give order a create order method
+connect that method to an order route
+when logged in and in the order route, user can create an order for a product with specified id
+create this order by putting in params for the order class
+when user sends the params through, an order is saved as a new order
