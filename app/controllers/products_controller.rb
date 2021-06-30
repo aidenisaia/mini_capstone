@@ -1,11 +1,8 @@
 class ProductsController < ApplicationController
+  before_action :authenticate_admin, only: [:create, :update, :destroy]
   def index
-    if current_user
-      all_products = Product.all
-      render json: all_products
-    else
-      render json: {}
-    end
+    all_products = Product.all
+    render json: all_products
   end
 
   def show
